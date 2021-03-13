@@ -8,6 +8,8 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
 
+  String emailId = '';
+  String pwd = '';
   final AuthService _auth = AuthService();
 
   @override
@@ -20,18 +22,35 @@ class _SignInState extends State<SignIn> {
       ),
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
-        child: RaisedButton(
-          child: Text('Sign in Anon'),
-          onPressed: () async {
-            dynamic result = await _auth.signInAnon();
-            if (result == null)
-              print('error in signing in');
-            else {
-              print('signed in');
-              print(result.uid);
-            }
-          }
-        ),
+        child: Form(
+          child: Column(
+            children: <Widget>[
+              SizedBox(height: 20.0,),
+              TextFormField(
+                onChanged: (val) {
+                  setState(() => emailId = val);
+                },
+              ),
+              SizedBox(height: 20.0,),
+              TextFormField(
+                obscureText: true,
+                onChanged: (val) {
+                  setState(() => pwd = val);
+                },
+              ),
+              SizedBox(height: 20.0,),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(primary: Colors.pink[400]),
+                  onPressed: () async{
+
+                  },
+                  child: Text(
+                      'sign in',
+                  style: TextStyle(color: Colors.white),)
+              )
+            ],
+          ),
+        )
       )
     );
   }

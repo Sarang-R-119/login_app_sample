@@ -5,6 +5,12 @@ class AuthService {
   // private member
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  // auth change user stream
+  // returns users on authentication changes
+  Stream<User> get user {
+    return _auth.authStateChanges();
+  }
+
   // Sign in anon
   Future signInAnon() async {
     try{
@@ -20,8 +26,28 @@ class AuthService {
   }
 
   // Sign in email & pass
+  Future signInWithEmailAndPass(email, password) async {
+    try{
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(email: email, password: password);
+      User user = userCredential.user;
+      return user;
+    }
+    catch(e){
+      print(e.toString());
+      return null;
+    }
+  }
 
   // register in email & pass
 
   // sign out
+  Future signOut() async {
+    try{
+      return await _auth.signOut();
+    }
+    catch(e){
+      print(e.toString());
+      return null;
+    }
+}
 }

@@ -1,7 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:login_app_sample/screens/authenticate/authenticate.dart';
 import 'package:login_app_sample/screens/home/home.dart';
+import 'package:login_app_sample/screens/wrapper.dart';
+import 'package:login_app_sample/services/auth.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,9 +31,15 @@ class App extends StatelessWidget {
         }
         // once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
-          return MaterialApp(
-            title: 'Firebase Auth Demo',
-            home: Authenticate(),
+          return StreamProvider<User>.value(
+            // Specifies the stream being listened to
+            // accessing the user stream
+            // wrapping the material app, all the descendants receive the stream
+            value: AuthService().user,
+            child: MaterialApp(
+              title: 'Firebase Auth Demo',
+              home: Wrapper(),
+            ),
           );
 
         }
