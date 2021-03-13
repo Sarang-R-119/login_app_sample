@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:login_app_sample/services/auth.dart';
 
 class SignUp extends StatefulWidget {
+
+  final Function toggleView;
+  SignUp({this.toggleView});
+
   @override
   _SignInState createState() => _SignInState();
 }
@@ -19,6 +23,17 @@ class _SignInState extends State<SignUp> {
           backgroundColor: Colors.green,
           elevation: 0.0,
           title: Text('Sign up to Thrive Cloud Cafe'),
+            actions: <Widget>[
+              TextButton.icon(
+                  onPressed: () {
+                    // widget here is the class SignUp
+                    widget.toggleView();
+                  },
+                  style: TextButton.styleFrom(primary: Colors.black),
+                  icon: Icon(Icons.person),
+                  label: Text("Sign in")
+              )
+            ]
         ),
         body: Container(
             padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
@@ -42,7 +57,7 @@ class _SignInState extends State<SignUp> {
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(primary: Colors.pink[400]),
                       onPressed: () async{
-
+                        dynamic result = await _auth.signUpWithEmailAndPass(emailId, pwd);
                       },
                       child: Text(
                         'sign up',
