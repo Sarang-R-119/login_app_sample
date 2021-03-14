@@ -24,7 +24,7 @@ class _SignInState extends State<SignIn> {
       appBar: AppBar(
         backgroundColor: Colors.green,
         elevation: 0.0,
-        title: Text('Sign in to Thrive Cloud Cafe'),
+        title: Text('Firebase Auth Demo'),
           actions: <Widget>[
             TextButton.icon(
                 onPressed: () {
